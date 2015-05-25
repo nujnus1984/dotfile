@@ -1,0 +1,27 @@
+# ~/.tmuxinator/ladder.yml
+
+name: ladder
+root: ~/
+
+# Optional tmux socket
+# socket_name: foo
+
+# Runs before everything. Use it to start daemons etc.
+# pre: sudo /etc/rc.d/mysqld start
+
+# Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
+# pre_window: rbenv shell 2.0.0-p247
+
+# Pass command line options to tmux. Useful for specifying a different tmux.conf.
+# tmux_options: -f ~/.tmux.mac.conf
+
+# Change the command to call tmux.  This can be used by derivatives/wrappers like byobu.
+# tmux_command: byobu
+
+windows:
+  - editor:
+      layout: even-vertical
+      panes:
+        - 时间预算_分配阶段_这个阶段_一旦敲定_所有参与人_不论开发也好_管理层也好_人手都会拿到一份计划表, 目标是自动能生成进度表, 随着计划变动, 这个表也会变动.
+        - 环境配置阶段_同步填入wiki
+        - 开发测试运行docker环境_本身的测试

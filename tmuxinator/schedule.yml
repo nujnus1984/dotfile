@@ -1,0 +1,33 @@
+# ~/.tmuxinator/schedule.yml
+
+name: schedule
+root: ~/
+
+# Optional tmux socket
+# socket_name: foo
+
+# Runs before everything. Use it to start daemons etc.
+# pre: sudo /etc/rc.d/mysqld start
+
+# Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
+# pre_window: rbenv shell 2.0.0-p247
+
+# Pass command line options to tmux. Useful for specifying a different tmux.conf.
+# tmux_options: -f ~/.tmux.mac.conf
+
+# Change the command to call tmux.  This can be used by derivatives/wrappers like byobu.
+# tmux_command: byobu
+
+windows:
+  - editor:
+      layout: even-horizontal
+      panes:
+        - echo "订单需求"
+        - echo "各模块进度"
+        - echo "开发进度"
+        - echo "测试中的镜像进度"
+        - echo "项目交付日期"
+        - echo "人员配备"
+
+        #生成开发进度图,以帮助决策. 决策思路图.
+
