@@ -1,2 +1,2 @@
 #!/bin/sh
-git pull origin remote
+git pull origin master
