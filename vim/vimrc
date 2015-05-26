@@ -1,0 +1,141 @@
+
+
+nnoremap <leader>0 :tabedit %<cr>
+source /home/john/workspace/system_init/for_vim/mru.vim
+source /home/john/workspace/system_init/for_vim/grep.vim
+nnoremap <leader>g :GrepBuffer<space>
+set shell=/bin/zsh  "设置一个你所用的shell
+set nocompatible
+set number
+set tabstop=4
+set showcmd
+set ignorecase
+set mouse=a
+set list  "list显示tab和换行, listchars设定tab符,然后这里貌似默认换行为null了
+set listchars=tab:->,trail:>
+set fdm=marker  "代码折叠方法fold method
+set scrolloff=18  "距离边缘三字符处就变移动为滚屏                  "help scrolloff
+"set scrolloff=3
+set nowrap  "不折行,且优化横向scroll
+"自动折行
+"set textwidth=10
+set wrap
+
+set completeopt=menuone 
+"即使只有一个匹配也用menu显示,而不是直接补全.
+
+"set scrollbind    #不错的命令,还需要优化
+"set noscrollbind
+"-------------------4(目录)-------------------
+
+nnoremap <leader>n :NERDTreeFocus<cr>
+
+nnoremap <leader>l :Tlist<cr>
+nnoremap <leader>b :Bookmark<space><space>
+
+ let NERDTreeBookmarksFile='/home/john/workspace/system_init/for_vim/NERDTreeBookmarks'
+"检查方式:  echo NERDTreeShowBookmarks
+"let NERDTreeShowBookmarks=1
+"-------------------5(搜索)-------------------
+
+"搜索光标下的字段,用 *,然后前或后用 N或n老样子
+set hlsearch   "高亮搜索结果
+"不再高亮搜索结果:
+nnoremap <leader>e :nohlsearch<cr>
+
+"-------------------6(按键映射)-------------------
+nnoremap L <C-d>
+nnoremap H <C-u>
+
+nnoremap <F1> <nop>
+nnoremap <F5> :GundoToggle<CR>
+nmap ; :
+nmap ' :<c-f>
+
+"要先禁掉系统的c-s会锁住终端界面的特性
+:map <C-s> :w<cr>
+
+map <F7> t
+map gf :edit <cfile><CR>
+
+
+nnoremap y "+y
+nnoremap p "+p
+nnoremap d "+d
+"nnoremap x "+x
+"注释后x就继续使用默认的寄存器了,d和x分别用两个会有所帮助
+
+vnoremap y "+y
+vnoremap p "+p
+vnoremap d "+d
+
+
+imap <c-j>  <c-n>
+imap <c-k>  <c-p>
+"为防止按错:
+"imap <c-l> <nop>
+"imap <c-h> <nop>
+
+"imap <c-h> (
+"imap <c-l> )
+"
+
+cnoremap <c-j> <c-n>
+cnoremap <c-k> <c-p>
+
+cnoremap <c-n> <nop>
+cnoremap <c-p> <nop>
+cnoremap <c-l> <nop>
+cnoremap <c-h> <nop>
+"-------------------7(函数与命令映射)-------------------
+
+func! Myhelp()
+  echo "语法高亮:Su Sc Sl 窗口:M H S  运行时目录:Seert"
+endfunc
+command Say echo
+command Myhelp call Myhelp()
+command -nargs=+ Su so $VIMRUNTIME/syntax/<args>.vim
+command Sc Syntax clear
+command Sl !ls $VIMRUNTIME/syntax
+
+command Seert NERDTree $VIMRUNTIME
+nnoremap <c-b> :Bufferlist<cr>
+
+
+function Emacs()
+  "可选用roxterm终端 或 guake终端,推荐guake,roxterm有配色自动改变的bug.
+  "execute '!roxterm -n client --tab -e /home/john/my_emacs_plugin/emacsclient_open.sh  '.expand('%:p')
+  execute '!guake -n client -e "/home/john/my_emacs_plugin/emacsclient_open.sh '.expand('%:p').'"'
+endfunction
+command Emacs call Emacs()
+
+
+function Dir()
+  execute '!roxterm -n client --tab -e /home/john/my_emacs_plugin/cd_open.sh  '.expand('%:p:h')
+endfunction
+command Dir call Dir()
+
+
+function! Retab() "把tab替换为空格
+  set ts=4
+  set expandtab
+  %retab!
+endfunction
+command Retab call Retab()
+
+
+" :help window-resize
+command M resize +130<cr>
+command H resize 15<cr>
+command S resize -130<cr>
+command I vertical resize 3<cr>
+command Ii vertical resize 60<cr>
+command II vertical resize 120<cr>
+
+
+
+set cursorline     "光标位的行列
+hi CursorLine cterm=NONE ctermbg=red ctermfg=black
+hi LineNr       guifg=#75715E guibg=#3E3D32 gui=none ctermfg=black ctermbg=9 cterm=none
+
+

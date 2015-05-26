@@ -10,4 +10,5 @@ done
 
 #单个文件的link,前一个是源, 后一个是目标
 ln  ./inputrc  ~/.inputrc
- 
+ln  vim/vimrc  ~/.vimrc
+
