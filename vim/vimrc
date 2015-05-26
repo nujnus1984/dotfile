@@ -1,8 +1,6 @@
 
 
 nnoremap <leader>0 :tabedit %<cr>
-source /home/john/workspace/system_init/for_vim/mru.vim
-source /home/john/workspace/system_init/for_vim/grep.vim
 nnoremap <leader>g :GrepBuffer<space>
 set shell=/bin/zsh  "设置一个你所用的shell
 set nocompatible
