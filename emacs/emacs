@@ -1,0 +1,16 @@
+(add-hook 'after-init-hook (lambda () (require  'projectile)))
+(add-to-list 'load-path "~/.emacs_lib")
+(require 'my-emacs-plugin)
+
+(defun test () "get current word." (interactive) (message "%s" (thing-at-point 'word)))
+
+(defun cmd_test (var1 var2)
+  "带参数的command的例子"
+  (interactive "sstring:\nnnumber:") ;第一个s为参数字符类型限定符,'string:'为提示信息,"\n"为分隔第一与第二
+  (message
+    (concat
+      var1
+      (number-to-string var2)
+      "lalala")))  ;interactive 是成为命令的必要条件.
+
+

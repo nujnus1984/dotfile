@@ -1,0 +1,930 @@
+vs(){
+  rvm info
+  echo "---------------------"
+  echo "  java:"
+  # JAVA_HOME:     /usr/lib/jvm/java-7-openjdk-i386
+  # CLASSPATH:     .:/usr/lib/jvm/java-7-openjdk-i386/lib
+  # PATH:          .:/usr/lib/jvm/java-7-openjdk-i386/bin
+  java -version
+  echo " "
+  echo "    JAVA_HOME:     $JAVA_HOME"
+  echo "    CLASSPATH:     $CLASSPATH"
+  echo "    PATH:          $PATH"
+  echo "---------------------"
+  echo "  node:"
+  echo "    version:       `node --version`"
+  echo "    bin:           `which node`"
+  echo "    nvm:           `which node`"
+  echo "  nvm:"
+  echo "    version:       `nvm_version`"
+  echo "    list:          `nvm list`"
+  echo "    update:        nvm ls-remote|nvm install xxx|nvm uninstall xxx"
+  echo "  npm:"
+  echo "    bin:           `which npm`"
+  echo "    始终搞不清npm是把代码存放到哪里"
+  echo "---------------------"
+  echo "  python:"
+  echo "    version:       `python --version`"
+  echo "    bin:           `which python`"
+  echo "---------------------"
+  echo "  python:"
+  echo "    version:       `python --version`"
+  echo "    bin:           `which python`"
+  echo "    pythonbrew:(deprecated)"
+  echo "        version:       `pythonbrew --version`"
+  echo "        bin:           `which pythonbrew`"
+  echo "        list:          `pythonbrew list`"
+  echo "        help:          pythonbrew list -k #列出remote可安装的版本|pythonbrew list #列出已安装版本"
+  echo "    pyenv:"
+  echo "    pip:"
+  echo "        version:       `pip --version`"
+  echo "        bin:           `which pip`"
+  echo "        help:          pip install|pip uninstall|pip list|pip search"
+  echo "---------------------"
+  echo "  zsh:"
+  echo "    version:       `zsh --version`"
+  echo "    bin:           `which zsh`"
+  #zsh 4.3.17 (i686-pc-linux-gnu)
+  echo "---------------------"
+  echo "  zenity(shell接口的widget库):"
+  echo "    version:        `zenity --version`"
+  echo "    bin:            `which zenity`"
+  echo "---------------------"
+  echo "  sqlite3:"
+  echo "    version:       `sqlite3 -version`"
+  echo "    bin:           `which sqlite3`"
+  echo "---------------------"
+  echo "  redis:"
+  echo "    redis-server version:       `redis-server --version`"
+  echo "    bin:                        `which redis-server`"
+  echo "    redis-cli version:          `redis-cli --version`"
+  echo "    bin:                        `which redis-cli`"
+  echo "---------------------"
+  echo "  git:"
+  echo "    version:        `git --version`"
+  echo "    bin:            `which git`"
+  echo "---------------------"
+  echo "  nginx:"
+  echo "    version:        `nginx -v`"
+  echo "    bin:            `which nginx`"
+  echo "---------------------"
+  echo "  gcc:"
+  echo "    version         `gcc --version|head -n 1`"
+  echo "    bin:            `which gcc`"
+  echo "  g++:"
+  echo "    version         `g++ --version|head -n 1`"
+  echo "    bin:            `which g++`"
+}
+
+#----------------------------
+#如何关闭每日进行的locate工具的udpatedb任务:
+#直接从cron任务中剔除mlocate即可
+#sudo mv /etc/cron.daily/mlocate ~
+
+#----------------------------
+install_finalterm() {
+  sudo add-apt-repository ppa:finalterm/daily
+  sudo apt-get update
+  sudo apt-get install finalterm
+}
+
+
+#主机温度传感器
+temp() {
+#sudo apt-add-repository ppa:jfi/psensor-daily-trunk
+#sudo apt-get update
+ echo nginx  -v
+}
+
+#----------------------------
+#如何关闭每日进行的locate工具的udpatedb任务:
+#直接从cron任务中剔除mlocate即可
+#sudo mv /etc/cron.daily/mlocate ~
+
+#----------------------------
+install_finalterm() {
+  sudo add-apt-repository ppa:finalterm/daily
+  sudo apt-get update
+  sudo apt-get install finalterm
+}
+
+
+#主机温度传感器
+temp() {
+#sudo apt-add-repository ppa:jfi/psensor-daily-trunk
+#sudo apt-get update
+#sudo apt-get install psensor
+psensor
+}
+
+#th ./db.zshrc末尾处添加如下这行
+#source ~/workspace/system_init/zshrc_init
+#
+#|# . "/home/john/.rvm/scripts/rvm"
+
+#rvm use 1.9.2
+
+#!!!记得把系统的shell 通过 chsh 改成zsh !!!
+
+#参数说明
+#$@=$*=$1+$2+$3...
+#$#是参数的个数
+
+
+#---------给脚本们定义颜色
+# Text color variables
+txtund=$(tput sgr 0 1)          # Underline
+txtbld=$(tput bold)             # Bold
+bldred=${txtbld}$(tput setaf 1) #  red
+bldgre=${txtbld}$(tput setaf 2) #  green
+bldgol=${txtbld}$(tput setaf 3) #  gold
+bldblu=${txtbld}$(tput setaf 4) #  blue
+bldpur=${txtbld}$(tput setaf 5) #  purple
+bldlightblu=${txtbld}$(tput setaf 6) # lightblue
+bldwht=${txtbld}$(tput setaf 7) #  white               #彩虹的七种颜色到7就没了
+txtrst=$(tput sgr0)             # Reset
+
+#echo "${bld9} green       ${txtrst}"
+#echo "${txtbld} Bold       ${txtrst}"
+#echo "${txtund} Underline  ${txtrst}"
+#echo "${bldred} red       ${txtrst}"
+#echo "${bldblu} blue       ${txtrst}"
+#echo "${bldwht} white       ${txtrst}"
+
+
+#变量begin-------------------------------
+export TERM=xterm-256color  #让terminal支持256色
+tput colors
+
+export sunjunrepo="/home/john/github/read/sunjunrepo/"
+export workpath=/home/john/workspace
+
+#nodejs的 "环境变量" 可通过: $nodejs --help 显示.
+#Environment variables:
+#NODE_PATH              ':'-separated list of directories
+#                       prefixed to the module search path.
+#NODE_MODULE_CONTEXTS   Set to 1 to load modules in their own
+#                       global contexts.
+#NODE_DISABLE_COLORS    Set to 1 to disable colors in the REPL
+#--------------------------------------
+export NODE_PATH=/home/john/.nvm/v0.8.24/lib/node_modules
+export PATH=${PATH}:'/home/john/node-webkit-v0.6.1-linux-ia32'
+
+#neo版本管理
+#
+#mongo版本管理
+
+export PATH=${PATH}:${workpath}/scripts
+export PATH=${PATH}:${workpath}/system_init
+
+export mongopath=~/mongo/mongodb-linux-i686-2.4.5/
+export PATH=${PATH}:${mongopath}/bin
+
+export myscript=${workpath}/system_init
+export myenvscript=${myscript}/env_script
+export mymongoscript=${myscript}/for_mongo
+export for_java=${myscript}/for_java
+myhelp=~/我的org/d基础技术-为实现或补足技术的技术地图/myhelp
+mystudy=${workpath}/accepts/study
+mytars=${workpath}/tars
+myregex=${myscript}/regex
+
+export  XDG_CONFIG_HOME=${myscript}
+#变量end-------------------------------
+
+#别名begin-----------------------------
+#由于sudo经常会找不到ruby的bin文件,(可能是因为sudo时使用的PATH变量和不sudo时的不同)所以:
+alias n='roxterm --tab'
+alias dl='cd /home/john/Downloads'
+alias e='emacsclient -nw'
+alias ei='emacsclient -nw  /home/john/我的org/index.org'
+alias me='emacsclient -nw  /home/john/my_emacs_plugin/menu_1.org'
+alias em='emacsclient -nw  /home/john/我的org/技术/新版项目列表/新版项目列表_技术.org'
+alias wt='emacsclient -nw  /home/john/电影/wuta.org'
+alias gs='emacsclient -nw  /home/john/新公司/gs.org'
+alias db='emacsclient -nw  /home/john/电影/待办.org'
+alias mac='emacsclient -nw  /home/john/电影/mac_study.org'
+alias cdwt='cd /home/john/电影/'
+alias edebug='emacs --debug-init'
+alias sudo='sudo env PATH=$PATH'
+alias ~~="cd ~"
+alias gdialogtest="gdialog --title Testing --msgbox 'This is atest' 10 20"
+alias dialogtest="dialog --title Testing --msgbox 'This is atest' 10 20" #有时候乱用引号(比如单引号用成双引号)不用会有奇怪的错误
+alias dialoghelp="dialog --help"  #注:gdialog没有这个功能
+alias tree="tree -C" #打开颜色
+alias l70="lt |column -c 70" 
+alias l7="l70"
+alias l1="ls -1"
+alias ema="emacs_cmd"
+#alias ex="exit"
+alias ct="synclient touchpadoff=1"
+alias ot="synclient touchpadoff=0"
+alias zs="zsh --login"
+alias chrome="google-chrome"
+alias sql="mysql -u root -p"
+
+#alias key='key_product.rb'
+
+alias ws="cd ~/workspace"
+alias gh="cd ~/workspace/from_github"
+alias lg="cd /var/log"
+
+#alias smail="mymail -add"
+alias ru="ruby -S"
+alias rm='mv2trash'
+
+alias t='tree'
+
+
+#alias mgd="ruby ${mymongoscript}/bin/mongo_launcher.rb"
+
+emacs_cmd(){ emacs -nw $* }
+#别名end-------------------------------
+
+#定义一些各个分析命令都会用到的函数
+#. common_helper
+.    ${myscript}/ls_helper
+.    ${myscript}/gcc_helper
+.    ${myscript}/cd_helper
+.    ${myscript}/process_helper
+.    ${myscript}/irb_helper
+.    ${myscript}/grep_helper
+.    ${myscript}/path_helper
+#.    ${myenvscript}/env_interface_load.sh
+.    ${myscript}/mythors/load_thors
+.    ${myscript}/for_git/local_git_interface_load.sh
+#命令行图形扩展
+#. term_graph
+
+
+#小清新虽见效稍慢，但健康无副作用
+
+mv2trash(){
+  mv $@ ~/.my_rm_trash/   #注意mv命令中,如果目标是文件夹,mv是不会覆盖文件夹的,只会移动到其下
+}
+
+#给命令一个装饰器,用来记录日志,和自动保存
+cd(){
+  #echo $PWD;
+  #pushd $PWD;           #可以通过给zshrc添加setopt AUTO_PUSHD达到
+  builtin cd "$@"
+}
+
+setopt  INTERACTIVE_COMMENTS
+
+
+#用来刷新新装的字体..
+#fc-cache -vf
+
+
+abc(){}
+#打开git readme网页
+gith(){
+  chrome /home/john/workspace/myhelp/ht-git-visual-guide/图解Git.html&
+#case $1 in
+#'--diff')
+#  chrome /home/john/workspace/myhelp/ht-git-visual-guide/图解Git.html#diff& ;;
+#'--commit')
+#  chrome /home/john/workspace/myhelp/ht-git-visual-guide/图解Git.html#commit& ;;
+#'--checkout')
+#  chrome /home/john/workspace/myhelp/ht-git-visual-guide/图解Git.html#checkout& ;;
+#'--detach')
+#  chrome /home/john/workspace/myhelp/ht-git-visual-guide/图解Git.html#detached& ;;
+#'--reset')
+#  chrome /home/john/workspace/myhelp/ht-git-visual-guide/图解Git.html#reset& ;;
+#'--merge')
+#  chrome /home/john/workspace/myhelp/ht-git-visual-guide/图解Git.html#merge& ;;
+#'--cherry')
+#  chrome /home/john/workspace/myhelp/ht-git-visual-guide/图解Git.html#cherry-pick& ;;
+#'--rebase')
+#  chrome /home/john/workspace/myhelp/ht-git-visual-guide/图解Git.html#rebase& ;;
+#here ;;
+#esac
+}
+
+#正文开始
+#############################################
+set -o vi                                   #
+                                            #
+#使得irb和mongo中都能用vi                   #
+#以下应该只运行一次,否则会越来越多          #
+#如下:                                      #
+#echo bind -v >> ~/.editrc                  #
+#echo set editing-mode vi >> ~/.inputrc     #
+                                            #
+#############################################
+java6(){
+  source ${for_java}/java6.sh
+  java -version
+}
+
+java7(){
+  source ${for_java}/java7.sh
+  java -version
+}
+  source ${for_java}/java7.sh
+
+govar(){
+  export GOROOT=${HOME}/rae/gae/go/go
+  export PATH=$PATH:$GOROOT/bin
+#GOARCH="386"
+#GOBIN=""
+#GOCHAR="8"
+#GOEXE=""
+#GOGCCFLAGS="-g -O2 -fPIC -m32 -pthread"
+#GOHOSTARCH="386"
+#GOHOSTOS="linux"
+#GOOS="linux"
+#GOPATH=""
+#GOROOT="/usr/local/go"
+#GOTOOLDIR="/usr/local/go/pkg/tool/linux_386"
+#CGO_ENABLED="1"
+}
+
+goo(){
+  ${GOROOT}/bin/go  $@
+}
+
+#renvi(){
+#  export RUBYLIB=${RUBYLIB}:${sunjunrepo}
+#  export RUBYPATH=${RUBYPATH}:${sunjunrepo}
+#}
+
+#复制命令行
+
+
+ginstall(){
+  gem install --no-rdoc --no-ri  $@
+}
+
+
+#测试rvm脚本是否存在, 然后source rvm脚本
+#rvm运行脚本
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
+#nvm运行脚本
+[[ -s "$HOME/.nvm/nvm.sh" ]] && . "$HOME/.nvm/nvm.sh"
+
+#pythonbrew初始化脚本
+[[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc
+
+
+#chgrp
+#chown
+
+#u用户 g组员 o其他人
+#chmod [ugo][+-=][rwx]
+#chmod 775
+#chmod g-w   #组员不能改
+#chmod go-w  #除user外所有人不能改
+#chmod go-r  #除user外所有人不能读
+
+#chmod g=r   #组员只能读
+#chmod g=x   #组员只能运行
+
+#chmod g+w
+#chmod go+w
+
+#----------------------------------------------------
+#按键重定义
+#----------
+
+
+#由于笔记本之前出现了 数字功能键紊乱,所以重新map一下.
+#xmodmap -pk #普通键表                        #各种单独的键
+#xmodmap -pm #特殊键表 组合键 == 称为修饰符   #各种组合键的前缀
+#
+
+#xmodmap -pm的用途:
+#
+#$xmodmap -pm 命令会显示:
+#   There are eight modifiers available, three of which have static
+#   meanings (shift, control, and lock), and the five others have
+#   generic names (mod1 through mod5).
+
+
+   #Also note that modifiers like Alt, Meta, Super, Hyper, NumLock?,
+   #and ScrollLock don’t have fixed modifier names – they are reported to the application
+   #as one of the five generic modifiers.
+   #It is up to the application to determine the meaning of the modifier.
+
+pg(){
+xmodmap -e "keycode 87 =  Next" #PageDown要写成 Next
+xmodmap -e "keycode 88 =  Prior" #PageUp要写成 Prior
+}
+
+upg(){
+xmodmap -e "keycode 87 = j"
+xmodmap -e "keycode 88 = k"
+}
+
+
+fx(){
+xmodmap -e "keycode 79 =7 ampersand"
+xmodmap -e "keycode 80 =8 asterisk"
+xmodmap -e "keycode 81 =9 parenleft"
+xmodmap -e "keycode 82 =semicolon colon"
+xmodmap -e "keycode 106 =0 parenright"
+
+xmodmap -e "keycode 83 = u"
+xmodmap -e "keycode 84 = i"
+xmodmap -e "keycode 85 = o"
+xmodmap -e "keycode 63 = p"
+
+xmodmap -e "keycode 87 = j"
+xmodmap -e "keycode 88 = k"
+xmodmap -e "keycode 89 = l"
+
+xmodmap -e "keycode 90 = m"
+
+xmodmap -e "keycode 59=comma less"
+xmodmap -e "keycode 91=period  greater"
+xmodmap -e "keycode 86=slash question"
+}
+
+#----------------------------------------------------
+
+#----------------------------------------------------
+#邮件工具
+#--------
+smail(){
+  echo 'smail------------'
+  mymail  -add $@
+  echo 'smail------------'
+}
+#----------------------------------------------------
+#zsh主题扩展
+#-----------
+source zsh_prompt.sh
+
+#----------------------------------------------------
+#zsh功能扩展
+#-----------
+source zle_init.sh
+
+
+#另外一个真正对您完成有用的是环境变量。任何时候您都可以使用 "$" 符号来引用变量，
+#shell 将参照此范围内所有变量来完成。所以如果您先执行 "echo $D"，
+#然后按下 TAB, 则如果您没有其它也可与之匹配的变量，它将以 "$DISPLAY" 完成，
+#（如果有的话，您会得到一个和前面一样完整的列表 -- 无论您匹配什么，“完成功能”都以同样的方式工作）。
+#正如前面所提及的，您可以完全用编程来完成，以确定完成什么及何时完成。
+#这都是由 "compctl" 命令控制的。（Zsh 的新 beta 版本是建立在先前的 3.1.6 版本上，
+#也包括一个新的我们在此不会涉及的机制，因为它们的使用并不广泛。）这是很复杂的领域，
+#但是大多数都可以通过几个短的 "compctl" 行来得到。
+#首先，也是 "compctl" 最有用的功能之一，是基于上下文对文件名的完成进行过滤。
+#在给定的情形下，我们可以减少相关匹配的数量，从而可增加唯一匹配的机会，
+#因此我们就可以完整得到整个输入的内容。让我们以 Java 的使用为例。当我们想编译 Java 源文件时，
+#我们通常会执行 "javac source.java"。源文件总是有一个 ".java" 的扩展名，
+#所以我们可以使用此信息来限制 Zsh 在此情况下所做的匹配。以下是实现方法：
+
+#为了xiki能够被访问
+export XIKI_DIR=/home/john/.rvm/gems/ruby-1.9.3-p392@xiki/gems/xiki-0.6.5
+
+#为rsense能够工作:
+export RSENSE_HOME=/usr/lib/rsense-0.3
+
+#------------------------------------
+
+#thor计划
+
+#计划中的把所有"工具"都安装在thor中.
+#
+#编写一些"扩展包"
+
+   #检查 嵌入的bin目录
+   #检查 嵌入的lib目录
+
+#导入环境变量,检查"是否会有什么文件"
+
+#检查"文件名"的正则模式
+
+
+#文件上锁,写入,读出
+
+
+#-----------
+
+#以不同的形式启动pry  带数据库
+#以不同的形式启动pry
+
+
+#以不同的形式启动irb  带数据库
+#以不同的形式启动irb
+
+#-----------
+
+#邮件命令安装
+
+#-----------
+
+#文档管理,文档搜索
+
+#-----------
+
+
+
+#项目相关工具:
+#
+#删除所有注释的工具
+#
+#代码整理工具
+#
+#
+
+
+#---------------------------------------------------
+#通知工具
+#--------
+
+#在通知框中显示一个文件的内容
+#sudo apt-get install xfce4-notifyd
+#验证已开启:pstree -pl|grep notify  #=> xfce-notifyd
+#
+#配置文件:
+#/usr/share/themes/ZOMG-PONIES!/xfce-notify-4.0/gtkrc
+notify(){
+               #貌似想要分行显示,只能用两组引号
+  notify-send  "<<$1>>" "`cat $1`" --expire-time=0  
+}
+
+
+nls(){
+  notify-send "`ls -f|column -c 80`" --expire-time=0
+}
+#xfce4-notify-config
+#notify-osd
+
+#------------------------------------------------------
+
+#node-webkit
+
+#Call all Node.js modules directly from DOM and enable a new way of writing applications with all Web technologies.
+
+
+#安装,下载预先编译好的nw文件
+#https://github.com/rogerwang/node-webkit
+#30M左右.
+
+#用nw的json 配置窗口初始化位置和大小不错.
+
+
+#文档:感觉比ria来势更凶猛.
+#https://github.com/rogerwang/node-webkit/wiki
+
+#https://github.com/rogerwang/node-webkit/wiki/How-to-use-3rd-party-node.js-modules-in-node-webkit
+
+#中文说明ppt,有用.
+#http://www.slideshare.net/LainZQ/node-webkit
+
+readme(){
+  nw ~/readme/nw_test
+}
+
+
+#-----------------------------------------------------------------
+#目录工具
+#--------
+
+ldc(){echo "${bldblu}`/bin/ls -F $*|grep /$|column -c 130`" }
+lfc(){echo "${bldpur}`/bin/ls -F $*| grep [^\/\*]$| column -c 130`" }
+lxc(){echo "${bldgre}`/bin/ls -F |grep *$| column -c 130`" }
+
+
+
+lc(){  #全部显示文件,调用函数时, 不能用括号
+  lxc $*
+  lfc $*
+  ldc $*
+}
+lf(){
+  lxc $*
+  lfc $*
+}
+ld(){
+  ldc $*
+}
+
+#打印格式能控制到这一步就差不多了,还要更详细的控制的话,就用ruby写服务进程吧.
+
+
+#ls|vi -
+
+#------
+#防火墙
+#------
+reset(){
+  iptables.rb reset              # 重置默认策略
+}
+dev(){                           #禁止外部主动链接
+  iptables.rb dev
+}
+block(){                         #关闭一系列外部接口
+  iptables.rb block_up_server
+}
+
+ipls(){                          #显示策略
+  iptables.rb ls
+}
+
+start(){
+fx
+ct
+block
+}
+
+cl(){
+  clear
+}
+
+
+
+
+#---------------------------------------------------------
+#shell小命令
+#-----------
+webs(){
+  rackup -s thin
+}
+
+mgd(){
+  mongod --dbpath ./db
+}
+
+plist(){ #打印系统服务所占用的端口表
+  cat /etc/services
+}
+socketof(){
+  echo 'from  /etc/service ...查看默认的端口分配策略:'
+  cat /etc/services|grep $*
+  echo '-----------------------------------------------------'
+  echo 'from  netstat -tln ...查看端口状态:'
+  netstat -tln | grep "Proto Recv-Q Send-Q Local Address\|$*"
+  echo '-----------------------------------------------------'
+  echo 'from  netstat -tln ...查看端口被哪个进程占用:'
+  lsof -i:$*
+}
+
+pcmd(){
+  sudo ps -ef
+}
+
+linenumber(){ #附加行号
+}
+
+vip(){ #从管道中读取
+  vi -
+}
+
+#用来清晰化 环境变量的 输出
+pvar(){
+  ruby -e " \
+   if !('$*').empty? then \
+     puts '$*'
+     puts ENV['$*'].split(':').sort \
+   else \
+     puts '请指定环境变量:'
+     puts ENV.to_a.collect {|a| a[0].ljust 30}.sort.each_slice(4){|a|print (a.join(' ')+%Q{\n})}
+   end "
+}
+
+source /usr/lib/advanced_shell_history/zsh
+
+#history(){
+#  ash_query  $*
+#}
+
+
+ll(){
+  ls -l|wc -l
+  ls -al|wc -l
+  #ls -lR|wc -l   #递归搜索全部,非常厉害,太费时
+}
+
+#---------------------------------------------------------
+#ruby小命令
+#----------
+now(){
+  ruby -e 'puts Time.now'
+}
+
+mc(){
+  mcat.rb $*
+}
+
+sk(){
+  skill.rb TERM $*
+}
+#export  -f sk
+
+lt(){
+  lstime.rb $*
+}
+
+#---------------------------------------------------------
+#web命令工具集
+#-------------
+#各种文件访问记录查询:
+#http://127.0.0.1:9292/writelogs/l/3
+#http://127.0.0.1:9292/writelogs/1
+#http://127.0.0.1:9292/writelogs/v2/1
+#唉,不能再爱了,直接在emacs里把记录调出来吧.  不要追求什么极致了,先把钱挣起来呗?
+
+
+color(){
+  curl http://127.0.0.1:9292/multitask/color/1 -s  #-s: silent 不显示统计信息
+}
+ttips(){
+#  curl http://127.0.0.1:9292/multitask/tips/1 -s  #-s: silent 不显示统计信息
+}
+
+lh(){
+  curl -d "pwd=`pwd`" http://127.0.0.1:9191/ashlog/ -s #-s: silent 不显示统计信息
+}
+
+lhday(){
+  curl  http://127.0.0.1:9191/ashaday/$*  -s #-s: silent 不显示统计信息
+}
+
+mys(){
+  god -c simple.god -D
+}
+
+#---------------------------------------------------------
+#启动vi buffwritelog服务
+#foreverb list -m
+#foreverb list
+#foreverb help
+
+
+#terminal积累   #guake有缺点,经常不兼容一些莫名的点
+                #xfce终端,貌似可配置性差了点
+                #roxterm 自定义快捷键的方式很独特, 先进入configuration manager中,
+                         #勾选shortcuts的:editing enable,然后直接在菜单上按键盘,键盘就被赋给了菜单功能.
+                #rxvt #发现是个很古老的东西,貌似很不好配置
+
+                #ajaxterm  #一个 browser端的terminal模拟器.
+
+#command line - What is default shell for terminal? - Ask Ubuntu
+
+
+
+#http://happycasts.net/episodes/41?autoplay=true   #一个不错的介绍tmux的网站.
+
+
+#------------------
+#htop 是个不错的进程检查工具, 如果能输出到vi,让其能够支持vi命令就更好了,手动刷新, 手动kill,nice,signal
+
+#这可能要靠xiki了
+
+
+
+#------------------
+#访问x-server的剪贴板的方法:
+#  ~/workspace/myhelp    uptime|xclip -i
+#  ~/workspace/myhelp    xclip -o
+#  18:19:44 up  9:16,  1 user,  load average: 0.16, 0.25, 0.34
+#  ~/workspace/myhelp    date|xclip -i
+#  ~/workspace/myhelp    xclip -o
+#  Thu Sep  5 18:19:55 CST 2013
+
+#---------------
+#除了x-server的剪贴板,还有一个更好用的:x-selection
+#
+#简称xsel, 常被emacs调用.
+#---------------
+
+
+#git---命令梳理
+newb(){
+git checkout -b $1
+echo '----------------------'
+git add .
+echo '----------------------'
+git status
+echo '----------------------'
+echo '请提交'
+}
+
+gadd(){
+  git add .
+echo '----------------------'
+  git status
+echo '----------------------'
+}
+
+gits(){
+  git status
+}
+
+glog(){
+  git log
+}
+
+gbls(){
+  git branch
+}
+
+gto(){
+  git checkout $1
+}
+
+gbto(){
+  git checkout -b $1
+}
+
+gserver_start(){
+  git instaweb --httpd=webrick --port=1313
+}
+gserver_stop(){
+  git instaweb --httpd=webrick --stop
+}
+
+wiki(){
+  echo 'enjoy: http://0.0.0.0:4567/'
+  google-chrome http://0.0.0.0:4567/pages  &
+  ~/wiki/git-wiki/run.ru -sthin -p4567
+}
+store_to_repo(){
+  cp $1 /home/john/my_repository/work_env/vi
+}
+alias stp='store_to_repo'
+
+deploy_snippet(){ #把当前文件复制到snippets目录下作为emacs 的snippets之用
+  cp $1 ~/.emacs.d/plugins/yasnippet/snippets/ruby-mode/general/
+}
+alias dps='deploy_snippet'
+alias dpsd='cd ~/.emacs.d/plugins/yasnippet/snippets/ruby-mode/general/'
+
+
+grp(){
+  cat /etc/group|grep $*
+}
+
+#update-rc.d 可以进行 添加和删除 启动脚本  (man update-rc.d)
+#禁止开机启动nginx
+#sudo update-rc.d -f nginx remove
+
+#sudo update-rc.d -f bluetooth remove   #bluetooth的禁用比较特殊
+  #Open the /etc/rc.local file with your favourite text editor:
+  #$ sudo vim /etc/rc.local
+  #Paste this to /etc/rc.local, before “exit 0″:
+  #$ sudo update-rc.d bluetooth remove
+  #Explanation:
+  #This is a debian trick. It tells the system not to load bluetooth at startup.
+
+#sudo update-rc.d -f blueman remove
+#sudo apt-get remove blueman
+#sudo apt-get remove zeitgeist     #goolge 收集用户习惯的服务(收集打开的app和打开的文件名)
+#sudo apt-get remove zeitgeist-core    #goolge 收集用户习惯的服务(收集打开的app和打开的文件名)
+#sudo apt-get remove zeitgeist-datahub    #goolge 收集用户习惯的服务(收集打开的app和打开的文件名)
+#sudo apt-get remove python-zeitgeist    #goolge 收集用户习惯的服务(收集打开的app和打开的文件名)
+#service --status-all #查看所有服务
+
+desc(){
+  ssh git@localhost "desc $*"
+}
+
+glone(){
+  git clone git@localhost:$*.git
+}
+
+pdf(){
+  cd /home/john/我的org/e资料地图-各种pdf
+}
+start(){
+#启动各种工具的批处理命令
+  fx && s e && /home/john/Desktop/goagent-gtk.desktop && dev
+  #键位 #emacs #翻墙  #防火墙
+}
+
+
+copy(){
+  xclip -i $1
+}
+
+paste(){
+  xclip -o $1
+}
+h(){
+  history  $1
+}
+pe(){
+  while read pipe; do
+    echo $pipe >> /home/john/history.org
+  done
+  echo "`now`--------------------------" >> /home/john/history.org && e /home/john/history.org
+}
+
+#用来过滤shell输出时的颜色信息.
+alias nocolor='sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g"'
+
+cpe(){
+  echo "`now`--------------------------" > /home/john/history.org
+}
+
+# Load pyenv automatically by adding
+# the following to ~/.zshrc:
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
