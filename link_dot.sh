@@ -14,14 +14,16 @@ ln ./git/git-meld.sh ~/bin/git-meld.sh
 
 #---------------------------------------------------------
 #单个文件的link,前一个是源, 后一个是目标
+#for bash
 ln  ./inputrc  ~/.inputrc
+
+#for zshlib
+mkdir -p ~/.zshlib
+ln  ./zsh/zshlib/zshrc_init  ~/.zshlib/zshrc_init
+ln  ./zsh/zshrc   ~/.zshrc
 
 #---------------------------------------------------------
 ln  ./vim/vimrc  ~/.vimrc
-
-#---------------------------------------------------------
-mkdir -p ~/.zshlib
-ln  ./zsh/zshlib/zshrc_init  ~/.zshlib/zshrc_init
 
 
 #---------------------------------------------------------
