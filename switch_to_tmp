@@ -1,0 +1,3 @@
+#!/bin/sh
+git branch tmp
+git checkout tmp
