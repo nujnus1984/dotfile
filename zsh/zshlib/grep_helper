@@ -1,0 +1,128 @@
+#基本的分析系统,shell编程才是王道
+#复杂的就用ruby吧
+#遗留问题,如何保存选项为变量,
+#貌似解析起来总是报-n不是命令，这种形式
+
+#--------------------------------------
+#选项说明
+#<human>
+#color=--color=always
+#linenumber=-n
+#exactly=   -x
+#binary=    -a
+#incase=    -i
+#mydefault= -E  #默认开启正则表达式 
+#<others>
+#others=    -v
+mygrep(){
+grep $@    --color=always -n ./* -r  #-A 6 -B 10    #color有了always 才能在输出到管道时 仍然保留颜色特征 
+}
+
+bigrep(){
+grep     --color -n -A 100  -B 100    $@
+}
+
+pgrep(){
+  ps aux|head -n 1
+  echo "${bldred}-------------------------------------------------------------------------${txtrst}"
+  ps aux|grep --color=always $*
+}
+
+grep_exactly_human(){
+grep -x -n --color=always -a -i -E    $*}
+grep_exactly_human_others(){ 
+grep -x -n --color=always -a -i -E -v $*}
+grep_human(){        
+grep    -n --color=always -a -i -E    $*}
+grep_human_others(){ 
+grep    -n --color=always -a -i -E -v $*}
+grep_exactly(){      
+grep -x                   -a -i -E    $*}
+grep_exactly_others(){
+grep -x                   -a -i -E -v $*}
+grep_others(){       
+grep                      -a -i -E -v $*}
+
+#--------------------------------------
+#grep_in_all_file(){ grep regex human "$*" ./* }
+#只显示完全匹配的行
+#<指针>
+#${!word}间接展开,即指针跳转,
+#word指向的字符串指向另一个变量
+
+gp(){
+  action="$1"
+  case ${action} in
+    human) grep_with_style="grep_exactly_human";shift;;
+    *) grep_with_style="grep_exactly";;
+  esac
+
+  action="$1"
+  shift #为了之后的$*中不含$1
+  case ${action} in
+    env|set|export) $action \
+                     | ${grep_with_style} \
+                     -f ${myregex}/re_for_path $*;; 
+    PATH) match_with_PATH $*;;
+    line_only) grep_exactly_human $*;;
+    word_only) action=$1; shift; grep_human "\b${action}\b" $* ;;
+    *) gp_help ;;
+  esac
+}
+#---------------------------------------------------
+#不懂如何传递变量,所以就先这么着吧
+gpo(){
+  action="$1"
+  case ${action} in
+	human) grep_with_style="grep_exactly_human_others"; \
+                           shift;;
+	*) grep_with_style="grep_exactly_others";;
+  esac
+
+  action="$1"
+  shift #为了之后的$*中不含$1
+  case ${action} in
+	env|set|export) $action \
+					 | ${grep_with_style} \
+					 -f ${myregex}/re_for_path $*;; 
+	PATH) match_with_PATH $*;;
+	line_only) grep_exactly_human $*;;
+    word_only) grep_human \b$*\b;;
+	*) gp_help ;;
+  esac
+}
+#------------------------------------------------
+
+gp_help(){
+cat << here
+    env|set|export) 找出所有地址型变量
+    PATH) 找出存放在PATH中的包文件
+    line_only)格式化的经典的grep
+    word_only)\b单词\b的形式
+    *)help
+here
+}
+
+match_with_PATH(){
+  package=$1
+  path_file=/tmp/match_path_tmp
+  result_file=/tmp/match_result_tmp
+  dpkg -L ${package}> ${path_file}
+  printf  $PATH  \
+  | xargs -d: -I s  grep -e s  ${path_file}  \
+  | sort  \
+  | uniq
+}
+
+printf_path(){
+  printf $1 \
+  |  xargs -d: -I a printf a"\n"
+}
+alias pp="printf_path"
+
+
+
+
+
+
+

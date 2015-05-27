@@ -1,0 +1,4 @@
+pp(){ pstree -p $* }
+psa(){ps -A $*}
+sk(){kill -9 $*}
+

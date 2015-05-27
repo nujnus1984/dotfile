@@ -1,0 +1,18 @@
+how-to-cd(){
+cat <<here
+  cds  scripts
+  cdh  help
+  cdp  tars
+  cdt  study
+  cdr  regex
+  cdm  my_git_repos
+here
+}
+
+alias cds="cd ${myscript}"
+alias cdh="cd ${myhelp}"
+  alias cda="cd ${myhelp}/LLVM/pro/"
+alias cdp="cd ${mytars}"
+alias cdt="cd ${mystudy}"
+alias cdr="cd ${myregex}"
+alias cdm="cd ~/my_git_repos"
