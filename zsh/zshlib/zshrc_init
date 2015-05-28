@@ -1,3 +1,4 @@
+mkdir -p ~/.my_rm_trash
 vs(){
   rvm info
   echo "---------------------"
@@ -243,13 +244,13 @@ emacs_cmd(){ emacs -nw $* }
 
 #定义一些各个分析命令都会用到的函数
 #. common_helper
-.    ${myscript}/ls_helper
-.    ${myscript}/gcc_helper
-.    ${myscript}/cd_helper
-.    ${myscript}/process_helper
-.    ${myscript}/irb_helper
-.    ${myscript}/grep_helper
-.    ${myscript}/path_helper
+source ~/.zshlib/ls_helper
+source ~/.zshlib/gcc_helper
+source ~/.zshlib/cd_helper
+source ~/.zshlib/process_helper
+source ~/.zshlib/irb_helper
+source ~/.zshlib/grep_helper
+source ~/.zshlib/path_helper
 #.    ${myenvscript}/env_interface_load.sh
 .    ${myscript}/mythors/load_thors
 .    ${myscript}/for_git/local_git_interface_load.sh
@@ -594,9 +595,9 @@ readme(){
 #目录工具
 #--------
 
-ldc(){echo "${bldblu}`/bin/ls -F $*|grep /$|column -c 130`" }
-lfc(){echo "${bldpur}`/bin/ls -F $*| grep [^\/\*]$| column -c 130`" }
-lxc(){echo "${bldgre}`/bin/ls -F |grep *$| column -c 130`" }
+ldc(){echo "${bldblu}`/bin/ls -F $*|grep "/$"|column -c 130`" }
+lfc(){echo "${bldpur}`/bin/ls -F $*| grep "[^\/\*]$"| column -c 130`" }
+lxc(){echo "${bldgre}`/bin/ls -F |grep "*$"| column -c 130`" }
 
 
 

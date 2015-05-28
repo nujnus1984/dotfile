@@ -19,7 +19,13 @@ ln  ./inputrc  ~/.inputrc
 
 #for zshlib
 mkdir -p ~/.zshlib
-ln  ./zsh/zshlib/zshrc_init  ~/.zshlib/zshrc_init
+for file in ./zsh/zshlib/*
+do
+  if [ -f $file ]
+  then
+    ln -t ~/.zshlib/ $file
+  fi
+done
 ln  ./zsh/zshrc   ~/.zshrc
 
 #---------------------------------------------------------
