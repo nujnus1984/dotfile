@@ -75,8 +75,8 @@ pt_tail="%{$bg[green]%}   %{$reset_color%} "
 
 
 prompt_functions(){
-  echo "%{$fg[black]$bg[yellow]%}[nvm:node-`node -v`]%{$reset_color%}\
-%{$fg[black]$bg[red]%}[rvm:`rvm current`]%{$reset_color%}\
+  echo "%{$fg[black]$bg[yellow]%}[nvm:node-`#node -v`]%{$reset_color%}\
+%{$fg[black]$bg[red]%}[rvm:`#rvm current`]%{$reset_color%}\
 %{$fg[black]$bg[yellow]%}[java6/7:${JAVA_HOME}]%{$reset_color%}\
 %{$fg[black]$bg[red]%}[neoxt:$neoversion]%{$reset_color%}\
 %{$fg[black]$bg[yellow]%}[mvm:mongo-version]%{$reset_color%}\n\

@@ -465,7 +465,7 @@ smail(){
 #----------------------------------------------------
 #zsh主题扩展
 #-----------
-source zsh_prompt.sh
+source ~/.zshlib/zsh_prompt.sh
 
 #----------------------------------------------------
 #zsh功能扩展
@@ -937,4 +937,37 @@ cpe(){
 export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+
+
+
+#  tmuxinator工具
+
+EDITOR=vim
+export EDITOR
+#source ~/.bin/tmuxinator.bash
+#alias tmuxinator="t"
+
+t(){
+  tmuxinator start $1
+}
+
+to(){
+  tmuxinator open $1
+}
+
+tn(){ 
+  tmuxinator new $1
+}
+
+tl(){
+  tmuxinator list
+}
+
+tc(){ 
+  tmuxinator copy $1 $2
+}
+
+td(){ 
+  tmuxinator delete $1
+}
 
