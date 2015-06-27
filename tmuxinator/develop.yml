@@ -1,7 +1,7 @@
 # ~/.tmuxinator/develop.yml
 
 name: develop
-root: ~/
+root: ${my_tmuxinator_root}
 
 # Optional tmux socket
 # socket_name: foo
@@ -22,8 +22,8 @@ windows:
   - editor:
       layout: tiled
       panes:
-        - cd /;pwd;echo "前台"
-        - cd /;pwd;echo "后台"
-        - cd /;pwd;echo "数据库"
-        - cd /;pwd;echo "资料"
+        - pwd
+        - pwd
+        - pwd
+        - echo ${my_tmuxinator_root}
 
