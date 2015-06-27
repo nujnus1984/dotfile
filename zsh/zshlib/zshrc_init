@@ -978,9 +978,18 @@ td(){
   tmuxinator delete $1
 }
 
-gp(){
+gp(){ //一般项目需要打开的目录
 guake -n  "views"
+guake -r  "(( views ))"
 guake -e  "cd views"
+
+guake -n  "models"
+guake -r  "(( models ))"
+guake -e  "cd models"
+
+guake -n  "controllers"
+guake -r  "(( controllers ))"
+guake -e  "cd controllers"
 
 }
 
